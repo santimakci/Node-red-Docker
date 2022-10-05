@@ -1,0 +1,239 @@
+[
+    {
+        "id": "936ad5a3bfbcea90",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f5c129a8e3143a22",
+        "type": "mqtt out",
+        "z": "936ad5a3bfbcea90",
+        "name": "",
+        "topic": "topic",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f4e872f5948c45b1",
+        "x": 630,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "5d178797ac61f04e",
+        "type": "ui_button",
+        "z": "936ad5a3bfbcea90",
+        "name": "ON",
+        "group": "a79d740638862903",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "str",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "0e91759bd7d95187",
+                "f5c129a8e3143a22"
+            ]
+        ]
+    },
+    {
+        "id": "107097e9a194c21d",
+        "type": "ui_button",
+        "z": "936ad5a3bfbcea90",
+        "name": "OFF",
+        "group": "a79d740638862903",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "f5c129a8e3143a22"
+            ]
+        ]
+    },
+    {
+        "id": "0e91759bd7d95187",
+        "type": "ui_switch",
+        "z": "936ad5a3bfbcea90",
+        "name": "",
+        "label": "APAGAR 5S",
+        "tooltip": "",
+        "group": "a79d740638862903",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "switch",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 390,
+        "y": 360,
+        "wires": [
+            [
+                "f5c129a8e3143a22"
+            ]
+        ]
+    },
+    {
+        "id": "32de4912daba99a6",
+        "type": "mqtt in",
+        "z": "936ad5a3bfbcea90",
+        "name": "",
+        "topic": "state",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "f4e872f5948c45b1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 540,
+        "wires": [
+            [
+                "bc210c0e52bf6e1e",
+                "3ed0a5b5c8d706b9"
+            ]
+        ]
+    },
+    {
+        "id": "92040f11dae3f7d9",
+        "type": "ui_text",
+        "z": "936ad5a3bfbcea90",
+        "group": "a79d740638862903",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ESTADO",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 500,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bc210c0e52bf6e1e",
+        "type": "function",
+        "z": "936ad5a3bfbcea90",
+        "name": "function 1",
+        "func": "return (msg.payload === 1) ? { ...msg, payload: 'ENCENDIDO' } : {...msg, payload: 'APAGADO' };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 540,
+        "wires": [
+            [
+                "92040f11dae3f7d9"
+            ]
+        ]
+    },
+    {
+        "id": "3ed0a5b5c8d706b9",
+        "type": "debug",
+        "z": "936ad5a3bfbcea90",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "f4e872f5948c45b1",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto-light",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a79d740638862903",
+        "type": "ui_group",
+        "name": "Button on",
+        "tab": "7f9fd8a325d2c602",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7f9fd8a325d2c602",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

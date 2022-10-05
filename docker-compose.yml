@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  node-red-control:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    container_name: node-red-control
+    restart: always
+    user: root
+    ports:
+      - 1880:1880
+    volumes:
+      - /mnt/external/control-data:/data
+    networks:
+      - main
+
+  node-red-light: 
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-red-light
+    restart: always
+    user: root
+    ports:
+      - 1881:1880
+    volumes:
+      - /mnt/external/light-data:/data
+    networks:
+      - main
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:1.6.10
+    volumes:
+      - ./config:/config/
+    ports:
+      - '8883:8883'
+    networks:
+      - main
+    restart: unless-stopped
+
+  mosquitto-light:
+    container_name: mosquitto-light
+    image: eclipse-mosquitto:1.6.10
+    volumes:
+      - ./config:/config-light/
+    ports:
+      - '8884:8883'
+    networks:
+      - main
+    restart: unless-stopped
+
+networks:
+  main:
+    driver: bridge
+
+volumes:
+  control-data:
+  light-data:
