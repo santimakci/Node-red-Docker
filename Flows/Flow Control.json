@@ -49,8 +49,8 @@
         "y": 260,
         "wires": [
             [
-                "0e91759bd7d95187",
-                "f5c129a8e3143a22"
+                "f5c129a8e3143a22",
+                "0e91759bd7d95187"
             ]
         ]
     },
@@ -79,6 +79,63 @@
         "wires": [
             [
                 "f5c129a8e3143a22"
+            ]
+        ]
+    },
+    {
+        "id": "32de4912daba99a6",
+        "type": "mqtt in",
+        "z": "936ad5a3bfbcea90",
+        "name": "",
+        "topic": "state",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "f4e872f5948c45b1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 540,
+        "wires": [
+            [
+                "bc210c0e52bf6e1e"
+            ]
+        ]
+    },
+    {
+        "id": "92040f11dae3f7d9",
+        "type": "ui_text",
+        "z": "936ad5a3bfbcea90",
+        "group": "a79d740638862903",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "State string",
+        "label": "ESTADO",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 590,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bc210c0e52bf6e1e",
+        "type": "function",
+        "z": "936ad5a3bfbcea90",
+        "name": "parseToStateName",
+        "func": "return (msg.payload === 1) ? { ...msg, payload: 'ENCENDIDO' } : {...msg, payload: 'APAGADO' };",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 540,
+        "wires": [
+            [
+                "92040f11dae3f7d9"
             ]
         ]
     },
@@ -117,84 +174,10 @@
         ]
     },
     {
-        "id": "32de4912daba99a6",
-        "type": "mqtt in",
-        "z": "936ad5a3bfbcea90",
-        "name": "",
-        "topic": "state",
-        "qos": "0",
-        "datatype": "auto-detect",
-        "broker": "f4e872f5948c45b1",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 150,
-        "y": 540,
-        "wires": [
-            [
-                "bc210c0e52bf6e1e",
-                "3ed0a5b5c8d706b9"
-            ]
-        ]
-    },
-    {
-        "id": "92040f11dae3f7d9",
-        "type": "ui_text",
-        "z": "936ad5a3bfbcea90",
-        "group": "a79d740638862903",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "ESTADO",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "x": 500,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "bc210c0e52bf6e1e",
-        "type": "function",
-        "z": "936ad5a3bfbcea90",
-        "name": "function 1",
-        "func": "return (msg.payload === 1) ? { ...msg, payload: 'ENCENDIDO' } : {...msg, payload: 'APAGADO' };",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 340,
-        "y": 540,
-        "wires": [
-            [
-                "92040f11dae3f7d9"
-            ]
-        ]
-    },
-    {
-        "id": "3ed0a5b5c8d706b9",
-        "type": "debug",
-        "z": "936ad5a3bfbcea90",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 340,
-        "y": 600,
-        "wires": []
-    },
-    {
         "id": "f4e872f5948c45b1",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "mosquitto-light",
+        "broker": "mosquitto",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
